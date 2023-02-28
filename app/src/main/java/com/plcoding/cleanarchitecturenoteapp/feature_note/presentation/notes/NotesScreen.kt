@@ -18,9 +18,10 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.plcoding.cleanarchitecturenoteapp.feature_note.presentation.notes.components.NoteItem
 import com.plcoding.cleanarchitecturenoteapp.feature_note.presentation.notes.components.OrderSection
+import com.plcoding.cleanarchitecturenoteapp.feature_note.presentation.utils.Screen
 import kotlinx.coroutines.launch
 
-@OptIn(ExperimentalAnimationApi::class)
+@ExperimentalAnimationApi
 @Composable
 fun NotesScreen(
     navController: NavController,
@@ -34,7 +35,7 @@ fun NotesScreen(
         floatingActionButton = {
             FloatingActionButton(
                 onClick = {
-
+                    navController.navigate(Screen.AddEditNoteScreen.route)
                 },
                 backgroundColor = MaterialTheme.colors.primary
             ) {
@@ -43,7 +44,6 @@ fun NotesScreen(
         },
         scaffoldState = scaffoldState
     ) {
-
         Column(
             modifier = Modifier
                 .fillMaxSize()
@@ -58,10 +58,9 @@ fun NotesScreen(
                     text = "Your note",
                     style = MaterialTheme.typography.h4
                 )
-
                 IconButton(
                     onClick = {
-
+                        viewModel.onEvent(NotesEvent.ToggleOrderSection)
                     },
                 ) {
                     Icon(
@@ -73,7 +72,7 @@ fun NotesScreen(
             AnimatedVisibility(
                 visible = state.isOrderSectionVisible,
                 enter = fadeIn() + slideInVertically(),
-                exit = fadeOut() + slideOutVertically(),
+                exit = fadeOut() + slideOutVertically()
             ) {
                 OrderSection(
                     modifier = Modifier
@@ -92,7 +91,12 @@ fun NotesScreen(
                         note = note,
                         modifier = Modifier
                             .fillMaxWidth()
-                            .clickable {},
+                            .clickable {
+                                navController.navigate(
+                                    Screen.AddEditNoteScreen.route +
+                                            "?noteId=${note.id}&noteColor=${note.color}"
+                                )
+                            },
                         onDeleteClick = {
                             viewModel.onEvent(NotesEvent.DeleteNote(note))
                             scope.launch {
@@ -100,7 +104,7 @@ fun NotesScreen(
                                     message = "Note deleted",
                                     actionLabel = "Undo"
                                 )
-                                if (result == SnackbarResult.ActionPerformed) {
+                                if(result == SnackbarResult.ActionPerformed) {
                                     viewModel.onEvent(NotesEvent.RestoreNote)
                                 }
                             }
