@@ -23,7 +23,6 @@ import androidx.compose.ui.unit.dp
 import androidx.core.graphics.ColorUtils
 import com.plcoding.cleanarchitecturenoteapp.feature_note.domain.model.Note
 
-
 @Composable
 fun NoteItem(
     note: Note,
@@ -32,7 +31,6 @@ fun NoteItem(
     cutCornerSize: Dp = 30.dp,
     onDeleteClick: () -> Unit
 ) {
-
     Box(
         modifier = modifier
     ) {
@@ -83,11 +81,9 @@ fun NoteItem(
                 overflow = TextOverflow.Ellipsis
             )
         }
-
         IconButton(
             onClick = onDeleteClick,
             modifier = Modifier.align(Alignment.BottomEnd)
-
         ) {
             Icon(
                 imageVector = Icons.Default.Delete,

@@ -13,14 +13,11 @@ fun OrderSection(
     noteOrder: NoteOrder = NoteOrder.Date(OrderType.Descending),
     onOrderChange: (NoteOrder) -> Unit
 ) {
-
     Column(
         modifier = modifier
-
     ) {
-
         Row(
-            modifier = modifier.fillMaxWidth()
+            modifier = Modifier.fillMaxWidth()
         ) {
             DefaultRadioButton(
                 text = "Title",
@@ -40,10 +37,9 @@ fun OrderSection(
                 onSelect = { onOrderChange(NoteOrder.Color(noteOrder.orderType)) }
             )
         }
-
         Spacer(modifier = Modifier.height(16.dp))
         Row(
-            modifier = Modifier
+            modifier = Modifier.fillMaxWidth()
         ) {
             DefaultRadioButton(
                 text = "Ascending",

@@ -1,4 +1,4 @@
-package com.plcoding.cleanarchitecturenoteapp.feature_note.presentation.notes.components
+package com.plcoding.cleanarchitecturenoteapp.feature_note.presentation.add_edit_note.components
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -36,7 +36,7 @@ fun TransparentHintTextField(
                     onFocusChange(it)
                 }
         )
-        if (isHintVisible) {
+        if(isHintVisible) {
             Text(text = hint, style = textStyle, color = Color.DarkGray)
         }
     }
